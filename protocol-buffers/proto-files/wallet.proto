@@ -1,0 +1,22 @@
+syntax = "proto3";
+package Research.ProtoBuf; //namespace can be inferred from package name declaration
+option csharp_namespace = "Research.ProtoBuf"; // options can be declared here or specified in the compiler command
+
+message Wallet {
+    
+    enum CardType {
+        Debit = 0;
+        Credit = 1;
+        Store = 2;
+    }
+    
+    message Card {
+        CardType type = 1;
+        string vendor = 2;
+        string number = 3;
+        string expiry = 4;
+    }
+    
+    repeated Card cards = 1;
+    int32 cash = 2;
+}

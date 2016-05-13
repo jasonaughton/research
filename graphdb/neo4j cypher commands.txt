@@ -1,0 +1,58 @@
+http://localhost:7474/browser/
+http://neo4j.com/developer/dotnet/
+http://neo4j.com/developer/cypher-query-language/
+
+
+
+1. Create me
+
+CREATE (ja:Person {Name: "Jason", Drinks: "Beer", Age: 47})
+
+
+2. Create Nic
+
+CREATE (nf:Person {Name: "Nicola", Hobby: "Cats", Age: 29})
+
+
+3. Create relationship of Jason knowing Nicola
+
+MATCH (ja:Person) WHERE ja.Name = "Jason"
+MATCH (nf:Person) WHERE nf.Name = "Nicola"
+CREATE (ja)-[:KNOWS]->(nf);
+
+
+4. Find people who Jason knows
+
+MATCH (ja:Person)-[:KNOWS]-(friends) WHERE ja.Name = "Jason" RETURN ja, friends; 
+
+
+5. Create relationship for Nicola knowing Jason since 2006
+
+MATCH (ja:Person) WHERE ja.Name = "Jason"
+MATCH (nf:Person) WHERE nf.Name = "Nicola"
+CREATE (nf)-[:KNOWS{Since:2006}]->(ja);
+
+
+6. Set property on existing relationship
+
+MATCH (ja:Person) WHERE ja.Name = "Jason"
+MATCH (nf:Person) WHERE nf.Name = "Nicola"
+CREATE UNIQUE (nf)-[r:TRAVELS]->(ja)
+SET r.Since = 2014;
+
+
+
+
+
+
+
+
+
+
+100. DELETE EVERYTHING
+
+MATCH (n)
+OPTIONAL MATCH (n)-[r]-()
+DELETE n,r;
+
+

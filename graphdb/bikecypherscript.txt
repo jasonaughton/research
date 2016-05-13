@@ -1,0 +1,154 @@
+
+
+
+:clear
+
+// DELETE *
+MATCH (all)
+OPTIONAL MATCH (all)-[relationships]-()
+DELETE all,relationships
+
+
+// SETUP NODES
+// Create people and label as Person
+CREATE (john:Person {Name:"John", Age:40})
+CREATE (brian:Person {Name:"Brian", Age:50})
+CREATE (arthur:Person {Name:"Arthur", Age:30})
+
+// Create two people with a relationship
+CREATE (terry:Person {Name:"Terry", Age:37}), (gerry:Person {Name:"Gerry", Age:17}), (terry)-[:FATHEROF {since:1999}]->(gerry)
+
+// Add an additional property to John
+MATCH (john:Person) WHERE john.Name = "John"
+SET john.HasBeard = true
+
+// Create media
+CREATE (mcn:Media {Name:"MotorcycleNews", ShortName:"MCN"})
+CREATE (pb:Media {Name:"Performance Bikes", ShortName:"PB"})
+
+// Add additional label to MCN
+MATCH (m:Media) WHERE m.ShortName = "MCN"
+SET m:Newspaper
+
+// Create bike manufacturers
+CREATE (honda:Manufacturer {Name:"Honda"})
+CREATE (suzuki:Manufacturer {Name:"Suzuki"})
+
+// Add the Motorcycle label to the manufacturers
+MATCH (m:Manufacturer)
+SET m:Motorcycle
+
+// Create clothing manufacturer
+CREATE (dieeasy:Manufacturer {Name:"Die Easy"})
+
+// Add the Clothing tag
+MATCH (m:Manufacturer) WHERE m.Name = "Die Easy"
+SET m:Clothing
+
+// Select all clothing
+MATCH (c:Clothing) RETURN c
+
+// Create pro rider
+CREATE (pedro:Professional {Name:"Pedro Gp"})
+
+// REViEW (SELECT *)
+MATCH (all) RETURN all
+
+
+
+
+// SETUP NODE RELATIONSHIPS
+// Create relationship between Brian & John
+MATCH (brian:Person) WHERE brian.Name = "Brian"
+MATCH (john:Person) WHERE john.Name = "John"
+CREATE (brian)-[:KNOWS]->(john);
+
+//Create more relationships
+MATCH (brian:Person) WHERE brian.Name = "Brian"
+MATCH (john:Person) WHERE john.Name = "John
+MATCH (arthur:Person) WHERE arthur.Name = "Arthur"
+MATCH (terry:Person) WHERE terry.Name = "Terry"
+CREATE (john)-[:KNOWS]->(brian)
+CREATE (john)-[:KNOWS{Since:2007}]->(arthur)
+CREATE (arthur)-[:KNOWS]->(terry);
+
+// and some more
+match (pedro:Person) WHERE pedro.Name = "Pedro Gp"
+match (john:Person) WHERE john.Name = "John"
+match (gerry:Person) WHERE gerry.Name = "Gerry"
+CREATE (john)-[:FANOF]->(pedro)
+CREATE (gerry)-[:FANOF{Obsessed:true}]->(pedro)
+
+// Query the people who John knows
+MATCH (john:Person)-[:KNOWS]-(friends) WHERE john.Name = "John" RETURN john, friends; 
+
+// Examine the query
+// PROFILE MATCH (john:Person)-[:KNOWS]-(friends) WHERE john.Name = "John" RETURN john, friends; // or EXPLAIN in place of PROFILE
+
+// Include a relationship property in the query
+MATCH (john:Person)-[rel:KNOWS]-(friends) WHERE john.Name = "John" AND rel.Since > 2006 RETURN john, friends;
+
+// Setup remaining relationships
+
+match (p:Person) WHERE p.Name = "Pedro Gp"
+match (gerry:Person) where gerry.Name = "Gerry"
+match (m:Motorcycle) WHERE m.Name = "Suzuki"
+CREATE (p)-[:RIDES]->(m)
+CREATE (gerry)-[:RIDES]->(m)
+
+match (john:Person) WHERE john.Name = "John"  
+match (terry:Person) where terry.Name = "Terry"
+match (arthur:Person) where arthur.Name = "Arthur"
+match (bike:Motorcycle) where bike.Name = "Honda"
+CREATE (john)-[:RIDES]->(bike)
+CREATE (terry)-[:RIDES]->(bike)
+CREATE (arthur)-[:RIDES]->(bike)
+
+
+// get all honda riders
+MATCH list = (bike)<-[RIDES]-(rider) where bike.Name = "Honda" return rider
+
+// foreach them and set a property value
+MATCH list = (bike)<-[RIDES]-(rider) where bike.Name = "Honda"
+foreach (n in nodes(list) | SET n.BikePref = "Japanese");
+
+
+// setup clothing wearers relationships
+match (d:Clothing) where d.Name = "Die Easy"
+match (p:Person) where p.Name = "Pedro Gp"
+match (g:Person) where g.Name = "Gerry"
+Create (p)-[:WEARS{Sponsored:true}]->(d)
+create (g)-[:WEARS]->(d);
+
+
+// setup readers
+match (m:Media) where m.ShortName = "MCN"
+match (p:Media) where p.ShortName = "PB"
+match (john:Person) where john.Name = "John"
+match (brian:Person) where brian.Name = "Brian"
+match (arthur:Person) where arthur.Name = "Arthur"
+match (terry:Person) where terry.Name = "Terry"
+match (gerry:Person) where gerry.Name = "Gerry"
+create (john)-[:READS]->(m)
+create (john)-[:READS]->(p)
+create (gerry)-[:READS]->(m)
+create (gerry)-[:READS]->(p)
+create (brian)-[:READS]->(m)
+create (arthur)-[:READS]->(m)
+create (terry)-[:READS]->(m)
+
+// setup advertisers
+match (m:Media) where m.ShortName = "MCN"
+match (p:Media) where p.ShortName = "PB"
+match (d:Manufacturer) where d.Name = "Die Easy"
+match (suz:Manufacturer) where suz.Name = "Suzuki"
+match (hon:Manufacturer) where hon.Name = "Honda"
+create (d)-[:ADVERTISES]->(m)
+create (suz)-[:ADVERTISES]->(m)
+create (hon)-[:ADVERTISES]->(m)
+create (hon)-[:ADVERTISES]->(p)
+
+//other
+match (pedro:Professional) where pedro.Name = "Pedro Gp"
+match (pb:Media) where pb.ShortName = "PB"
+create (pb)-[:FEATURES]->(pedro)

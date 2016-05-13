@@ -1,0 +1,32 @@
+USING PERIODIC COMMIT 500
+LOAD CSV WITH HEADERS FROM "file:///C:/temp/model.csv" AS models 
+CREATE (mod:Model { id: toInt(models.carmodid), name: models.Model, manufacturer: models.Manufacturer, range: models.Range})
+
+START n=node(*) return count(n)
+START r=rel(*) return count(r)
+
+
+match n where n.manufacturer="Skoda" return n limit 5
+
+
+match coll = (models:Model) where models.manufacturer="Skoda"
+foreach (n in nodes(coll) | SET n.status = "Cool");
+
+
+create (jason:User {name:"Jason"})
+
+
+match coll = (models:Model) where models.range="Fabia"
+match (u:User) where u.name = "Jason"
+foreach (n in nodes(coll) | CREATE (u)-[:LIKES]->(n))
+
+match coll = (models:Model) where models.range="Focus"
+match (u:User) where u.name = "Jason"
+foreach (n in nodes(coll) | CREATE (u)-[:DISLIKES]->(n))
+
+
+
+match (u:User) where u.name = "Jason"
+match mods1 = (m1:Model) where (m1)<-[:LIKES]-(u)
+match mods2 = (m2:Model) where (m2)<-[:DISLIKES]-(u)
+return u,mods1,mods2

@@ -1,0 +1,10 @@
+syntax = "proto3";
+package Research.ProtoBuf;
+
+import "address_book.proto";
+import "wallet.proto";
+
+message Handbag {
+    AddressBook book = 1;
+    Wallet purse = 2;
+}

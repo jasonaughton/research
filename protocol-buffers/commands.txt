@@ -1,0 +1,32 @@
+C# compile:
+C:\dev\research\protocol-buffers>binary\3\protoc.exe -I=./proto-files/ --csharp_out=./generated-files/cs/ --csharp_opt=file_extension=.g.cs ./proto-files/address_book..proto
+
+
+(
+	C++ compile: C:\dev\research\protocol-buffers>binary\3\protoc.exe -I=./proto-files/ --cpp_out=./generated-files/cpp/ ./proto-files/*.proto
+)
+
+
+Go compile:
+
+C:\dev\research\Go\bin>C:\dev\research\protocol-buffers\binary\3\protoc.exe -I=C:\dev\research\protocol-buffers\proto-files\ --go_out=C:\dev\research\protocol-buffers\generated-files\go\ C:\dev\research\protocol-buffers\proto-files\address_book.proto
+
+
+
+Install package:
+
+Copy from C:\dev\research\protocol-buffers\generated-files\go to C:\dev\research\go\src\addressbook
+
+go install addressbook - will find package in addressbook folder, as namespace is not main a package file (.a) will be build at C:\dev\research\go\pkg\windows_amd64
+
+
+
+GO:
+
+Install app (from .go files in src/buffer folder):
+
+go install buffer  - namespace is main so we get exe at C:\dev\research\go\bin
+
+Run buffer app:
+
+c:\dev\research\go>bin\buffer
