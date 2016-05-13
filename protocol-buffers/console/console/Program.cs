@@ -4,6 +4,7 @@
 
 namespace console
 {
+    using System;
     using System.IO;
     using Google.Protobuf;
     using Research.ProtoBuf;
@@ -100,13 +101,21 @@ namespace console
 
             using (var output = File.Create("buffer.dat"))
             {
+                Console.WriteLine("out:");
+                Console.WriteLine(book.ToString());
+                Console.WriteLine();
+
                 book.WriteTo(output);
             }
 
-            //using (var input = File.OpenRead("buffer.dat"))
-            //{
-            //    var anotherBook = AddressBook.Parser.ParseFrom(input);
-            //}
+            using (var input = File.OpenRead("buffer.dat"))
+            {
+                var anotherBook = AddressBook.Parser.ParseFrom(input);
+
+                Console.WriteLine("in:");
+                Console.WriteLine(anotherBook.ToString());
+                Console.ReadLine();
+            }
         }
     }
 }

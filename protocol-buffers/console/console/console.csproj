@@ -45,7 +45,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protobuf-gen-files\AddressBook.g.cs" />
-    <Compile Include="protobuf-gen-files\Wallet.g.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
