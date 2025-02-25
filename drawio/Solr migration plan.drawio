@@ -5,16 +5,19 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="_k9ZC8fl_zS8k_MWhJva-3" value="Solr cores" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="320" y="10" width="110" height="30" as="geometry" />
+          <mxGeometry x="410" y="10" width="110" height="30" as="geometry" />
         </mxCell>
         <mxCell id="_k9ZC8fl_zS8k_MWhJva-5" value="Cars/Vans For Sale&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
-          <mxGeometry x="345" y="50" width="60" height="80" as="geometry" />
+          <mxGeometry x="435" y="50" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_k9ZC8fl_zS8k_MWhJva-6" value="&lt;div&gt;Owner reviews&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
-          <mxGeometry x="345" y="150" width="60" height="80" as="geometry" />
+          <mxGeometry x="435" y="150" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_k9ZC8fl_zS8k_MWhJva-7" value="&lt;div&gt;CMS content&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
-          <mxGeometry x="345" y="250" width="60" height="80" as="geometry" />
+          <mxGeometry x="435" y="250" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_k9ZC8fl_zS8k_MWhJva-8" value="Forges" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="10" width="110" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
